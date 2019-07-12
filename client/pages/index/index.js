@@ -127,6 +127,14 @@ Page({
 
   onLoad: function(res) {
     app = getApp();
+    const that = this;
+    wx.getStorage({
+      key: "invoiceInfo",
+      success(res) {
+        console.log(res.data);
+        that.setData({ invoiceInfo: res.data });
+      }
+    });
   },
 
   onShow: function() {
@@ -190,6 +198,7 @@ Page({
   setInvoiceInfo: function() {
     var that = this;
     that.setData({ invoiceInfo: that.data.bankInfo.words_result });
+    wx.setStorage({ key: "invoiceInfo", data: invoiceInfo });
     console.log(that.data.invoiceInfo);
   },
 
@@ -202,9 +211,9 @@ Page({
       success: function(result) {
         wx.hideLoading();
         if (result) {
-          let invoice_info = JSON.parse(result);
+          let invoiceInfo = JSON.parse(result);
           that.setData({
-            bankInfo: invoice_info.data
+            bankInfo: invoiceInfo.data
           });
           that.anim4result();
         } else {
