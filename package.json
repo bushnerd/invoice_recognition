@@ -1,0 +1,22 @@
+{
+  "name": "bank_recogination",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kuangch/bank_recogination.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kuangch/bank_recogination/issues"
+  },
+  "homepage": "https://github.com/kuangch/bank_recogination#readme",
+  "dependencies": {
+    "debug": "^4.1.1"
+  }
+}
