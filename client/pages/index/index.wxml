@@ -21,12 +21,10 @@
   </view>
   <!-- 银行卡信息 -->
   <view animation="{{animBankInfo}}" style="opacity:{{animScope.bankInfoInit ? 0 : 1 }}; transform:translateX({{animScope.bankInfoInit ? -800 : 0 }}px)" class="bank-number-container" wx:hidden="{{bankInfo}}">
-    <text class="bank-name-text">{{bankInfo.words_result.PurchaserName}}</text>
-    <text class="bank-type-text">
-      {{bankInfo.bank_card_type ? (bankInfo.bank_card_type == 1 ? "借记卡" : "信用卡"): "未知类别"}}
-    </text>
-    <image class="bank-yl-icon" src="./ic_bank_yl.png" mode="aspectFit"></image>
-    <text class="bank-number-text">{{bankInfo.words_result.PurchaserRegisterNum}}</text>
+    <text class="bank-name-text">名称：{{bankInfo.words_result.PurchaserName}}</text>
+    <text class="bank-name-text">纳税人识别号：{{bankInfo.words_result.PurchaserRegisterNum}}</text>
+    <text class="bank-name-text">地址、电话：{{bankInfo.words_result.PurchaserAddress}}</text>
+    <text class="bank-name-text">开户行及账号：{{bankInfo.words_result.PurchaserBank}}</text>
   </view>
   <!-- 复制 -->
   <view animation="{{animCopy}}" style="opacity:{{animScope.copyInit ? 0 : 1 }};{{animScope.copyInit ? 'transform:translateX(800px)' : 'transform:translateX(0px)' }}" class='copy-container' wx:hidden="{{bankInfo}}">

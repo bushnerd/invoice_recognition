@@ -139,7 +139,7 @@ page {
   margin-left: 40rpx;
   margin-top: 20rpx;
   display: block;
-  font-size: 45rpx;
+  font-size: 30rpx;
 }
 
 .bank-type-text {
