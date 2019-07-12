@@ -29,7 +29,9 @@ Page({
       obtainImgInit: true,
       bankInfoInit: true,
       copyInit: true
-    }
+    },
+    bankInfo: null,
+    invoiceInfo: undefined
   },
 
   // 重置显示结果动画
@@ -183,6 +185,12 @@ Page({
         }
       }
     });
+  },
+
+  setInvoiceInfo: function() {
+    var that = this;
+    that.setData({ invoiceInfo: that.data.bankInfo.words_result });
+    console.log(that.data.invoiceInfo);
   },
 
   // ocr识别

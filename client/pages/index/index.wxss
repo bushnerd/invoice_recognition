@@ -130,7 +130,7 @@ page {
   margin-top: 30rpx;
   border-radius: 20rpx;
   width: 620rpx;
-  height: 320rpx;
+  height: 600rpx;
   background: #ef6356;
   /* box-shadow: 8rpx 10rpx 10rpx #666; */
 }
@@ -139,7 +139,7 @@ page {
   margin-left: 40rpx;
   margin-top: 20rpx;
   display: block;
-  font-size: 30rpx;
+  font-size: 25rpx;
 }
 
 .bank-type-text {
