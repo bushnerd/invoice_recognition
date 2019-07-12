@@ -4,7 +4,7 @@
 
 // 此处主机域名修改成腾讯云解决方案分配的域名
 // var host = 'https://aduls9yo.qcloud.la';
-var host = "http://106.52.28.217:5757";
+var host = "http://192.168.2.50:5757";
 
 var config = {
   // 下面的地址配合云端 Demo 工作
