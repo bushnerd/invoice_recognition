@@ -1,26 +1,13 @@
 <!-- index.wxml -->
 <view class="container">
-  <!-- 初始页面 -->
-  <view class='splash-view' wx:if="{{!imgFile.path}}">
-    <import src="desc_item.wxml" />
-    <view animation="{{animDESC}}" style="opacity:{{animScope.DESC ? 0 : 1 }}">
-      <block wx:key='' wx:for="{{DESC}}">
-        <template is="desc_item" data="{{...item}}" />
-      </block>
-    </view>
-    <image animation="{{animObtainImgStart}}" style='opacity:0' class="obtain-img-start" src='./ic_pic.png' bindtap="chooseImage"></image>
-  </view>
   <!-- 获取图片 -->
-  <view animation="{{animObtainImg}}" style="opacity:{{animScope.obtainImgInit ? 0 : 1 }}" class="obtain-img-container" wx:hidden="{{imgFile.path}}">
-    <view class="obtain-img-button" bindtap="chooseImage">
-      <text class="obtain-img-button-text">获取发票图片</text>
-    </view>
+  <view animation="{{animObtainImg}}" class="obtain-img-container">
     <view class="img-container">
       <image class="image" src="{{imgFile.path}}" mode="aspectFit" bindtap="previewImg"></image>
     </view>
   </view>
   <!-- 发票信息 -->
-  <view animation="{{animBankInfo}}" style="opacity:{{animScope.bankInfoInit ? 0 : 1 }}; transform:translateX({{animScope.bankInfoInit ? -800 : 0 }}px)" class="bank-number-container" wx:hidden="{{bankInfo}}">
+  <view animation="{{animBankInfo}}" class="bank-number-container">
     <text class="bank-name-text">名称：{{invoiceInfo.PurchaserName}}</text>
     <text class="bank-name-text">名称：{{bankInfo.words_result.PurchaserName}}</text>
     <text class="bank-name-text">纳税人识别号：{{invoiceInfo.PurchaserRegisterNum}}</text>
@@ -29,6 +16,11 @@
     <text class="bank-name-text">地址、电话：{{bankInfo.words_result.PurchaserAddress}}</text>
     <text class="bank-name-text">开户行及账号：{{invoiceInfo.PurchaserBank}}</text>
     <text class="bank-name-text">开户行及账号：{{bankInfo.words_result.PurchaserBank}}</text>
+  </view>
+  <view class="button-container">
+    <button class="btn" bindtap="chooseImage">获取发票图片</button>
+  </view>
+  <view class="button-container">
     <button class="btn" type="primary" bindtap="setInvoiceInfo">设为模板</button>
   </view>
 </view>

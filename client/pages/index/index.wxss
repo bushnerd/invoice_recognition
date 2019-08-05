@@ -69,7 +69,7 @@ page {
 
 .obtain-img-container {
   border-radius: 20rpx;
-  width: 620rpx;
+  width: 700rpx;
   margin-top: 40rpx;
   height: auto;
   /* width: 100%; */
@@ -79,6 +79,7 @@ page {
   border-right: none;
   transition: all 800ms ease;
   box-sizing: border-box;
+  box-shadow: 8rpx 10rpx 10rpx #666;
 }
 
 .obtain-img-button {
@@ -128,16 +129,17 @@ page {
   position: relative;
   color: white;
   margin-top: 30rpx;
+  padding-bottom: 10rpx;
   border-radius: 20rpx;
-  width: 620rpx;
-  height: 600rpx;
+  width: 700rpx;
+  height: auto;
   background: #ef6356;
-  /* box-shadow: 8rpx 10rpx 10rpx #666; */
+  box-shadow: 8rpx 10rpx 10rpx #666;
 }
 
 .bank-name-text {
-  margin-left: 40rpx;
-  margin-top: 20rpx;
+  margin-left: 15rpx;
+  margin-top: 10rpx;
   display: block;
   font-size: 25rpx;
 }
@@ -177,6 +179,15 @@ page {
   text-align: right;
   display: block;
   font-size: 48rpx;
+}
+
+/*===============================================
+  
+  控制按钮
+
+ ===============================================*/
+.button-container {
+  margin-top: 20rpx;
 }
 
 /*===============================================
