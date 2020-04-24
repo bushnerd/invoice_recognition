@@ -22,7 +22,7 @@ if (!fs.existsSync(config.cache_dir)) {
   fs.mkdirSync(config.cache_dir);
 }
 app.global = {
-  cache_dir: config.cache_dir
+  cache_dir: config.cache_dir,
 };
 debug(`cache file dir: ${app.global.cache_dir}`);
 

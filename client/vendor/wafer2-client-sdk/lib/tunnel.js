@@ -117,7 +117,7 @@ function Tunnel(serviceUrl) {
    * 派发事件，通知所有处理函数进行处理
    */
   function dispatchEvent(eventType, eventPayload) {
-    eventHandlers.forEach(function(handler) {
+    eventHandlers.forEach(function (handler) {
       var handleType = handler[0];
       var handleFn = handler[1];
 
@@ -159,7 +159,7 @@ function Tunnel(serviceUrl) {
     requestLib.request({
       url: serviceUrl,
       method: "GET",
-      success: function(response) {
+      success: function (response) {
         if (
           +response.statusCode === 200 &&
           response.data &&
@@ -171,7 +171,7 @@ function Tunnel(serviceUrl) {
         }
       },
       fail: dispatchConnectServiceError,
-      complete: () => (isOpening = false)
+      complete: () => (isOpening = false),
     });
 
     function dispatchConnectServiceError(detail) {
@@ -181,7 +181,7 @@ function Tunnel(serviceUrl) {
         dispatchEvent("error", {
           code: ERR_CONNECT_SERVICE,
           message: "连接信道服务失败，网络错误或者信道服务没有正确响应",
-          detail: detail || null
+          detail: detail || null,
         });
       } else {
         startReconnect(detail);
@@ -197,7 +197,7 @@ function Tunnel(serviceUrl) {
       onOpen: handleSocketOpen,
       onMessage: handleSocketMessage,
       onClose: handleSocketClose,
-      onError: handleSocketError
+      onError: handleSocketError,
     });
 
     wx.connectSocket({ url: url });
@@ -270,7 +270,7 @@ function Tunnel(serviceUrl) {
 
     wx.sendSocketMessage({
       data: encodedPacket.join(":"),
-      fail: handleSocketError
+      fail: handleSocketError,
     });
   }
 
@@ -289,8 +289,8 @@ function Tunnel(serviceUrl) {
       type: PACKET_TYPE_MESSAGE,
       content: {
         type: messageType,
-        content: messageContent
-      }
+        content: messageContent,
+      },
     };
 
     emitPacket(packet);
@@ -437,7 +437,7 @@ function Tunnel(serviceUrl) {
       dispatchEvent("error", {
         code: ERR_RECONNECT,
         message: "重连失败",
-        detail: lastError
+        detail: lastError,
       });
     } else {
       wx.closeSocket();
@@ -523,7 +523,7 @@ function Tunnel(serviceUrl) {
         dispatchEvent("error", {
           code: ERR_SOCKET_ERROR,
           message: "连接信道失败，网络错误或者信道服务不可用",
-          detail: detail
+          detail: detail,
         });
         break;
     }

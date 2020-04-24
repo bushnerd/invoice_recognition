@@ -19,7 +19,7 @@ var buildAuthHeader = function buildAuthHeader(session) {
  * @class
  * 表示请求过程中发生的异常
  */
-var RequestError = (function() {
+var RequestError = (function () {
   function RequestError(type, message) {
     Error.call(this, message);
     this.type = type;
@@ -46,13 +46,13 @@ function request(options) {
   var originHeader = options.header || {};
 
   // 成功回调
-  var callSuccess = function() {
+  var callSuccess = function () {
     success.apply(null, arguments);
     complete.apply(null, arguments);
   };
 
   // 失败回调
-  var callFail = function(error) {
+  var callFail = function (error) {
     fail.call(null, error);
     complete.call(null, error);
   };
@@ -79,7 +79,7 @@ function request(options) {
       utils.extend({}, options, {
         header: utils.extend({}, originHeader, authHeader),
 
-        success: function(response) {
+        success: function (response) {
           var data = response.data;
 
           var error, message;
@@ -103,7 +103,7 @@ function request(options) {
         },
 
         fail: callFail,
-        complete: noop
+        complete: noop,
       })
     );
   }
@@ -111,5 +111,5 @@ function request(options) {
 
 module.exports = {
   RequestError: RequestError,
-  request: request
+  request: request,
 };

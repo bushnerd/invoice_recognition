@@ -3,7 +3,7 @@ const debug = require("debug")("koa-weapp-demo");
 /**
  * 响应处理模块
  */
-module.exports = async function(ctx, next) {
+module.exports = async function (ctx, next) {
   try {
     // 调用下一个 middleware
     await next();
@@ -15,7 +15,7 @@ module.exports = async function(ctx, next) {
       ? ctx.body
       : {
           code: ctx.state.code !== undefined ? ctx.state.code : 0,
-          data: ctx.state.data !== undefined ? ctx.state.data : {}
+          data: ctx.state.data !== undefined ? ctx.state.data : {},
         };
   } catch (e) {
     // catch 住全局的错误信息
@@ -27,7 +27,7 @@ module.exports = async function(ctx, next) {
     // 输出详细的错误信息
     ctx.body = {
       code: -1,
-      error: e && e.message ? e.message : e.toString()
+      error: e && e.message ? e.message : e.toString(),
     };
   }
 };

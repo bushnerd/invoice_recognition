@@ -22,7 +22,7 @@ const CONF = {
     user: "root",
     db: "cAuth",
     pass: "123456",
-    char: "utf8mb4"
+    char: "utf8mb4",
   },
 
   cos: {
@@ -34,7 +34,7 @@ const CONF = {
     // Bucket 名称
     fileBucket: "qcloudtest",
     // 文件夹
-    uploadFolder: ""
+    uploadFolder: "",
   },
 
   // 微信登录态有效期
@@ -54,7 +54,7 @@ const CONF = {
   wxMessageToken: "weixinmsgtoken",
   networkTimeout: 30000,
 
-  cache_dir: __dirname + "/cache_dir"
+  cache_dir: __dirname + "/cache_dir",
 };
 
 module.exports = CONF;

@@ -1,4 +1,4 @@
-const formatTime = date => {
+const formatTime = (date) => {
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDate();
@@ -13,16 +13,16 @@ const formatTime = date => {
   );
 };
 
-const formatNumber = n => {
+const formatNumber = (n) => {
   n = n.toString();
   return n[1] ? n : "0" + n;
 };
 
 // 加载
-var showBusy = text =>
+var showBusy = (text) =>
   wx.showLoading({
     title: text,
-    mask: true
+    mask: true,
   });
 
 // 显示成功提示
@@ -30,7 +30,7 @@ var showSuccess = (text, duration) => {
   wx.showToast({
     title: text,
     icon: "success",
-    duration: duration || 1500
+    duration: duration || 1500,
   });
 };
 
@@ -39,7 +39,7 @@ var showModel = (title, content) => {
   wx.showModal({
     title,
     content: content,
-    showCancel: false
+    showCancel: false,
   });
 };
 

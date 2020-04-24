@@ -2,12 +2,12 @@ const client_id = "1f5OpU2MTf1IYqtNeLfYQHpy";
 const client_secret = "bppIbvEzi4OjykBuIoWKKIWuDjGDU4DE";
 var app;
 
-var __getBaiduToken = function(options) {
+var __getBaiduToken = function (options) {
   var tokenCache;
 
   options = {
-    success: options && options.success ? options.success : function() {},
-    fail: options && options.fail ? options.fail : function() {}
+    success: options && options.success ? options.success : function () {},
+    fail: options && options.fail ? options.fail : function () {},
   };
 
   //取缓存token
@@ -53,32 +53,32 @@ var __getBaiduToken = function(options) {
     fail(error) {
       console.log("request fail", error);
       options.fail();
-    }
+    },
   });
 };
 
-var initOcr = function(aplication) {
+var initOcr = function (aplication) {
   app = aplication;
   __getBaiduToken();
 };
 
-var getBankNumber = function(options) {
+var getBankNumber = function (options) {
   options = {
     imgPath: options.imgPath ? options.imgPath : "",
-    success: options.success ? options.success : function() {},
-    fail: options.fail ? options.fail : function() {},
-    complete: options.complete
+    success: options.success ? options.success : function () {},
+    fail: options.fail ? options.fail : function () {},
+    complete: options.complete,
   };
 
   __getBaiduToken({
-    success: function(token) {
+    success: function (token) {
       wx.uploadFile({
         url: app.ip + "/weapp/bank_search",
         filePath: options.imgPath,
         name: "image",
         dataType: "json",
         formData: {
-          baidu_ocr_token: token
+          baidu_ocr_token: token,
         },
         success(result) {
           console.log("获取银行卡号码成功");
@@ -97,12 +97,12 @@ var getBankNumber = function(options) {
         },
         complete(info) {
           if (options.complete) options.complete();
-        }
+        },
       });
     },
-    fail: function() {
+    fail: function () {
       options.fail();
-    }
+    },
   });
 };
 

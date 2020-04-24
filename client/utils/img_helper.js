@@ -1,4 +1,4 @@
-var toBase64 = function(imgFile, callBack, type) {
+var toBase64 = function (imgFile, callBack, type) {
   //通过微信请求的方式获取图片的 arraybuffer
   wx.request({
     url: imgFile.path,
@@ -15,7 +15,7 @@ var toBase64 = function(imgFile, callBack, type) {
     },
     fail(err) {
       callBack(-1);
-    }
+    },
   });
 };
 

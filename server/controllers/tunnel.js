@@ -17,7 +17,7 @@ const connectedTunnelIds = [];
  * @param  {String} content 消息内容
  */
 const $broadcast = (type, content) => {
-  tunnel.broadcast(connectedTunnelIds, type, content).then(result => {
+  tunnel.broadcast(connectedTunnelIds, type, content).then((result) => {
     const invalidTunnelIds =
       (result.data && result.data.invalidTunnelIds) || [];
 
@@ -25,7 +25,7 @@ const $broadcast = (type, content) => {
       console.log("检测到无效的信道 IDs =>", invalidTunnelIds);
 
       // 从 userMap 和 connectedTunnelIds 中将无效的信道记录移除
-      invalidTunnelIds.forEach(tunnelId => {
+      invalidTunnelIds.forEach((tunnelId) => {
         delete userMap[tunnelId];
 
         const index = connectedTunnelIds.indexOf(tunnelId);
@@ -41,7 +41,7 @@ const $broadcast = (type, content) => {
  * 调用 TunnelService.closeTunnel() 关闭信道
  * @param  {String} tunnelId 信道ID
  */
-const $close = tunnelId => {
+const $close = (tunnelId) => {
   tunnel.closeTunnel(tunnelId);
 };
 
@@ -58,7 +58,7 @@ function onConnect(tunnelId) {
 
     $broadcast("people", {
       total: connectedTunnelIds.length,
-      enter: userMap[tunnelId]
+      enter: userMap[tunnelId],
     });
   } else {
     console.log(`Unknown tunnelId(${tunnelId}) was connectd, close it`);
@@ -80,7 +80,7 @@ function onMessage(tunnelId, type, content) {
       if (tunnelId in userMap) {
         $broadcast("speak", {
           who: userMap[tunnelId],
-          word: content.word
+          word: content.word,
         });
       } else {
         $close(tunnelId);
@@ -118,14 +118,14 @@ function onClose(tunnelId) {
   if (connectedTunnelIds.length > 0) {
     $broadcast("people", {
       total: connectedTunnelIds.length,
-      leave: leaveUser
+      leave: leaveUser,
     });
   }
 }
 
 module.exports = {
   // 小程序请求 websocket 地址
-  get: async ctx => {
+  get: async (ctx) => {
     const data = await tunnel.getTunnelUrl(ctx.req);
     const tunnelInfo = data.tunnel;
 
@@ -135,7 +135,7 @@ module.exports = {
   },
 
   // 信道将信息传输过来的时候
-  post: async ctx => {
+  post: async (ctx) => {
     const packet = await tunnel.onTunnelMessage(ctx.request.body);
 
     debug("Tunnel recive a package: %o", packet);
@@ -155,5 +155,5 @@ module.exports = {
         onClose(packet.tunnelId);
         break;
     }
-  }
+  },
 };

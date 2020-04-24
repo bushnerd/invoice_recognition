@@ -22,8 +22,8 @@ const DB = require("knex")({
     password: config.pass,
     database: config.db,
     charset: config.char,
-    multipleStatements: true
-  }
+    multipleStatements: true,
+  },
 });
 
 console.log(`准备读取 SQL 文件：${INIT_DB_FILE}`);
@@ -35,11 +35,11 @@ console.log("开始执行 SQL 文件...");
 
 // 执行 .sql 文件内容
 DB.raw(content).then(
-  res => {
+  (res) => {
     console.log("数据库初始化成功！");
     process.exit(0);
   },
-  err => {
+  (err) => {
     throw new Error(err);
   }
 );

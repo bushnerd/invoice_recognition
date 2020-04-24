@@ -1,15 +1,15 @@
 var app;
 
-var initOcr = function(aplication) {
+var initOcr = function (aplication) {
   app = aplication;
 };
 
-var getBankNumber = function(options) {
+var getBankNumber = function (options) {
   options = {
     imgPath: options.imgPath ? options.imgPath : "",
-    success: options.success ? options.success : function() {},
-    fail: options.fail ? options.fail : function() {},
-    complete: options.complete
+    success: options.success ? options.success : function () {},
+    fail: options.fail ? options.fail : function () {},
+    complete: options.complete,
   };
 
   wx.uploadFile({
@@ -18,7 +18,7 @@ var getBankNumber = function(options) {
     name: "image",
     dataType: "json",
     formData: {
-      baidu_ocr_token: ""
+      baidu_ocr_token: "",
     },
     success(result) {
       console.log("获取银行卡号码成功");
@@ -36,7 +36,7 @@ var getBankNumber = function(options) {
     },
     complete(info) {
       if (options.complete) options.complete();
-    }
+    },
   });
 };
 

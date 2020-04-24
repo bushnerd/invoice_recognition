@@ -20,7 +20,7 @@ bower install qcloud-weapp-client-sdk
 安装之后，就可以使用 `require` 引用 SDK 模块：
 
 ```js
-var qcloud = require('./bower_components/qcloud-weapp-client-sdk/index.js');
+var qcloud = require("./bower_components/qcloud-weapp-client-sdk/index.js");
 ```
 
 ## 会话服务
@@ -32,19 +32,20 @@ var qcloud = require('./bower_components/qcloud-weapp-client-sdk/index.js');
 登录可以在小程序和服务器之间建立会话，服务器由此可以获取到用户的标识和信息。
 
 ```js
-var qcloud = require('./bower_components/qcloud-weapp-client-sdk/index.js');
+var qcloud = require("./bower_components/qcloud-weapp-client-sdk/index.js");
 
 // 设置登录地址
-qcloud.setLoginUrl('https://199447.qcloud.la/login');
+qcloud.setLoginUrl("https://199447.qcloud.la/login");
 qcloud.login({
-    success: function (userInfo) {
-        console.log('登录成功', userInfo);
-    },
-    fail: function (err) {
-        console.log('登录失败', err);
-    }
+  success: function (userInfo) {
+    console.log("登录成功", userInfo);
+  },
+  fail: function (err) {
+    console.log("登录失败", err);
+  },
 });
 ```
+
 本 SDK 需要配合云端 SDK 才能提供完整会话服务。通过 [setLoginUrl](#setLoginUrl) 设置登录地址，云服务器在该地址上使用云端 SDK 处理登录请求。
 
 > `setLoginUrl` 方法设置登录地址之后会一直有效，因此你可以在微信小程序启动时设置。
@@ -57,13 +58,13 @@ qcloud.login({
 
 ```js
 qcloud.request({
-    url: 'http://199447.qcloud.la/user',
-    success: function (response) {
-        console.log(response);
-    },
-    fail: function (err) {
-        console.log(err);
-    }
+  url: "http://199447.qcloud.la/user",
+  success: function (response) {
+    console.log(response);
+  },
+  fail: function (err) {
+    console.log(err);
+  },
 });
 ```
 
@@ -71,16 +72,16 @@ qcloud.request({
 
 ```js
 // 使用 login 参数之前，需要设置登录地址
-qcloud.setLoginUrl('https://199447.qcloud.la/login');
+qcloud.setLoginUrl("https://199447.qcloud.la/login");
 qcloud.request({
-    login: true,
-    url: 'http://199447.qcloud.la/user',
-    success: function (response) {
-        console.log(response);
-    },
-    fail: function (err) {
-        console.log(err);
-    }
+  login: true,
+  url: "http://199447.qcloud.la/user",
+  success: function (response) {
+    console.log(response);
+  },
+  fail: function (err) {
+    console.log(err);
+  },
 });
 ```
 
@@ -92,22 +93,24 @@ qcloud.request({
 
 ```js
 // 创建信道，需要给定后台服务地址
-var tunnel = this.tunnel = new qcloud.Tunnel('https://199447.qcloud.la/tunnel');
+var tunnel = (this.tunnel = new qcloud.Tunnel(
+  "https://199447.qcloud.la/tunnel"
+));
 
 // 监听信道内置消息，包括 connect/close/reconnecting/reconnect/error
-tunnel.on('connect', () => console.log('WebSocket 信道已连接'));
-tunnel.on('close', () => console.log('WebSocket 信道已断开'));
-tunnel.on('reconnecting', () => console.log('WebSocket 信道正在重连...'));
-tunnel.on('reconnect', () => console.log('WebSocket 信道重连成功'));
-tunnel.on('error', error => console.error('信道发生错误：', error));
+tunnel.on("connect", () => console.log("WebSocket 信道已连接"));
+tunnel.on("close", () => console.log("WebSocket 信道已断开"));
+tunnel.on("reconnecting", () => console.log("WebSocket 信道正在重连..."));
+tunnel.on("reconnect", () => console.log("WebSocket 信道重连成功"));
+tunnel.on("error", (error) => console.error("信道发生错误：", error));
 
 // 监听自定义消息（服务器进行推送）
-tunnel.on('speak', speak => console.log('收到 speak 消息：', speak));
+tunnel.on("speak", (speak) => console.log("收到 speak 消息：", speak));
 
 // 打开信道
 tunnel.open();
 // 发送消息
-tunnel.emit('speak', { word: "hello", who: { nickName: "techird" }});
+tunnel.emit("speak", { word: "hello", who: { nickName: "techird" } });
 // 关闭信道
 tunnel.close();
 ```
@@ -120,55 +123,62 @@ tunnel.close();
 
 ## API
 
-
 ### setLoginUrl
+
 设置会话服务登录地址。
 
 #### 语法
+
 ```js
 qcloud.setLoginUrl(loginUrl);
 ```
 
 #### 参数
-|参数         |类型           |说明
-|-------------|---------------|--------------
-|loginUrl     |string         |会话服务登录地址
+
+| 参数         | 类型   | 说明             |
+| ------------ | ------ | ---------------- |
+| loginUrl     | string | 会话服务登录地址 |
 
 ### login
+
 登录，建立微信小程序会话。
 
 #### 语法
+
 ```js
 qcloud.login(options);
 ```
 
 #### 参数
-|参数         |类型           |说明
-|-------------|---------------|--------------
-|options      |PlainObject    |会话服务登录地址
-|options.success | () => void | 登录成功的回调
-|options.error | (error) => void | 登录失败的回调
 
+| 参数            | 类型            | 说明             |
+| --------------- | --------------- | ---------------- |
+| options         | PlainObject     | 会话服务登录地址 |
+| options.success | () => void      | 登录成功的回调   |
+| options.error   | (error) => void | 登录失败的回调   |
 
 ### request
+
 进行带会话的请求。
 
 #### 语法
+
 ```js
 qcloud.request(options);
 ```
 
 #### 参数
-|参数         |类型           |说明
-|-------------|---------------|--------------
-|options      |PlainObject    | 会话服务登录地址
-|options.login | bool         | 是否自动登录以获取会话，默认为 false
-|options.url   | string       | 必填，要请求的地址
-|options.header | PlainObject | 请求头设置，不允许设置 Referer
-|options.method | string      | 请求的方法，默认为 GET
-|options.success | (response) => void | 登录成功的回调。<ul><li>`response.statusCode`：请求返回的状态码</li><li>`response.data`：请求返回的数据</li></ul>
-|options.error | (error) => void | 登录失败的回调
-|options.complete | () => void | 登录完成后回调，无论成功还是失败
+
+| 参数             | 类型               | 说明                                                                                                              |
+| ---------------- | ------------------ | ----------------------------------------------------------------------------------------------------------------- |
+| options          | PlainObject        | 会话服务登录地址                                                                                                  |
+| options.login    | bool               | 是否自动登录以获取会话，默认为 false                                                                              |
+| options.url      | string             | 必填，要请求的地址                                                                                                |
+| options.header   | PlainObject        | 请求头设置，不允许设置 Referer                                                                                    |
+| options.method   | string             | 请求的方法，默认为 GET                                                                                            |
+| options.success  | (response) => void | 登录成功的回调。<ul><li>`response.statusCode`：请求返回的状态码</li><li>`response.data`：请求返回的数据</li></ul> |
+| options.error    | (error) => void    | 登录失败的回调                                                                                                    |
+| options.complete | () => void         | 登录完成后回调，无论成功还是失败                                                                                  |
 
 ### Tunnel
 
@@ -177,67 +187,79 @@ qcloud.request(options);
 #### constructor
 
 ##### 语法
+
 ```js
 var tunnel = new Tunnel(tunnelUrl);
 ```
 
 #### 参数
-|参数         |类型           |说明
-|-------------|---------------|--------------
-|tunnelUrl    |String         | 会话服务登录地址
 
+| 参数         | 类型     | 说明             |
+| ------------ | -------- | ---------------- |
+| tunnelUrl    | String   | 会话服务登录地址 |
 
 #### on
+
 监听信道上的事件。信道上事件包括系统事件和服务器推送消息。
 
 ##### 语法
+
 ```js
 tunnel.on(type, listener);
 ```
 
 ##### 参数
-|参数         |类型           |说明
-|-------------|---------------|--------------
-|type         |string         | 监听的事件类型
-|listener     |(message?: any) => void | 监听器，具体类型的事件发生时调用监听器。如果是消息，则会有消息内容。
+
+| 参数         | 类型                    | 说明                                                                 |
+| ------------ | ----------------------- | -------------------------------------------------------------------- |
+| type         | string                  | 监听的事件类型                                                       |
+| listener     | (message?: any) => void | 监听器，具体类型的事件发生时调用监听器。如果是消息，则会有消息内容。 |
 
 ##### 事件
-|事件         |说明
-|-------------|-------------------------------
-|connect      |信道连接成功后回调
-|close        |信道关闭后回调
-|reconnecting |信道发生重连时回调
-|reconnected  |信道重连成功后回调
-|error        |信道发生错误后回调
-|[message]    |信道服务器推送过来的消息类型，如果消息类型和上面内置的时间类型冲突，需要在监听的时候在消息类型前加 `@`
-|\*           |监听所有事件和消息，监听器第一个参数接收到时间或消息类型 
+
+| 事件         | 说明                                                                                                   |
+| ------------ | ------------------------------------------------------------------------------------------------------ |
+| connect      | 信道连接成功后回调                                                                                     |
+| close        | 信道关闭后回调                                                                                         |
+| reconnecting | 信道发生重连时回调                                                                                     |
+| reconnected  | 信道重连成功后回调                                                                                     |
+| error        | 信道发生错误后回调                                                                                     |
+| [message]    | 信道服务器推送过来的消息类型，如果消息类型和上面内置的时间类型冲突，需要在监听的时候在消息类型前加 `@` |
+| \*           | 监听所有事件和消息，监听器第一个参数接收到时间或消息类型                                               |
 
 #### open
+
 打开信道，建立连接。由于小程序的限制，同一时间只能有一个打开的信道。
 
 ##### 语法
+
 ```js
 tunnel.open();
 ```
 
 #### emit
+
 向信道推送消息。
 
 ##### 语法
+
 ```js
 tunnel.emit(type, content);
 ```
 
 ##### 参数
-|参数         |类型           |说明
-|-------------|---------------|--------------
-|type         |string         | 要推送的消息的类型
-|content      |any            | 要推送的消息的内容
+
+| 参数         | 类型         | 说明               |
+| ------------ | ------------ | ------------------ |
+| type         | string       | 要推送的消息的类型 |
+| content      | any          | 要推送的消息的内容 |
 
 #### close
+
 关闭信道
 
 ##### 语法
+
 ```js
 tunnel.close();
 ```

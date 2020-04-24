@@ -12,30 +12,30 @@ Page({
     DESC: [
       {
         title: true,
-        desc: "建议"
+        desc: "建议",
       },
       {
-        desc: "图片小于3M"
+        desc: "图片小于3M",
       },
       {
-        desc: "分辨率低于4k"
+        desc: "分辨率低于4k",
       },
       {
-        desc: "保证清晰度"
-      }
+        desc: "保证清晰度",
+      },
     ],
     animScope: {
       DESC: true,
       obtainImgInit: true,
       bankInfoInit: true,
-      copyInit: true
+      copyInit: true,
     },
     bankInfo: null,
-    invoiceInfo: undefined
+    invoiceInfo: undefined,
   },
 
   // 重置显示结果动画
-  resetResultAnim: function() {
+  resetResultAnim: function () {
     this.animBankInfo(true);
     this.animCopy(true);
     this.animDESC(true);
@@ -43,89 +43,83 @@ Page({
   },
 
   // 显示结果动画
-  anim4result: function() {
+  anim4result: function () {
     this.animBankInfo();
 
     this.animCopy();
   },
 
-  animDESC: function(reserve) {
+  animDESC: function (reserve) {
     // 描述动画
     var animDESC = wx.createAnimation({
-      timingFunction: "ease"
+      timingFunction: "ease",
     });
     animDESC.opacity(reserve ? 0 : 1).step({ duration: reserve ? 500 : 1500 });
     this.setData({
-      animDESC: animDESC.export()
+      animDESC: animDESC.export(),
     });
   },
 
-  animObtainImgStart: function(reserve) {
+  animObtainImgStart: function (reserve) {
     // 初始选择照片按钮动画
     var animObtainImgStart = wx.createAnimation({
-      timingFunction: "ease"
+      timingFunction: "ease",
     });
     if (reserve) {
-      animObtainImgStart
-        .opacity(0)
-        .scale(0.2, 0.2)
-        .step({ duration: 500 });
+      animObtainImgStart.opacity(0).scale(0.2, 0.2).step({ duration: 500 });
     } else {
       animObtainImgStart
         .opacity(0.8)
         .scale(0.8, 0.8)
         .step({ duration: 300, delay: 200 });
-      animObtainImgStart
-        .opacity(1)
-        .scale(1.2, 1.2)
-        .step({ duration: 200 });
+      animObtainImgStart.opacity(1).scale(1.2, 1.2).step({ duration: 200 });
       animObtainImgStart.scale(1, 1).step({ duration: 300 });
     }
     this.setData({
-      animObtainImgStart: animObtainImgStart.export()
+      animObtainImgStart: animObtainImgStart.export(),
     });
   },
 
-  animObtainImg: function(reserve) {
+  animObtainImg: function (reserve) {
     // 获取照片动画
     var animObtainImg = wx.createAnimation({
-      timingFunction: "ease"
+      timingFunction: "ease",
     });
     animObtainImg.opacity(reserve ? 0 : 1).step({ duration: 2000 });
     this.setData({
-      animObtainImg: animObtainImg.export()
+      animObtainImg: animObtainImg.export(),
     });
   },
 
-  animBankInfo: function(reserve) {
+  animBankInfo: function (reserve) {
     // 银行卡片动画
     var animBankInfo = wx.createAnimation({
-      timingFunction: "ease"
+      timingFunction: "ease",
     });
     animBankInfo
       .opacity(reserve ? 0 : 1)
       .translateX(reserve ? "-800px" : 0)
       .step({ duration: 800 });
     this.setData({
-      animBankInfo: animBankInfo.export()
+      animBankInfo: animBankInfo.export(),
     });
   },
 
-  animCopy: function(reserve) {
+  animCopy: function (reserve) {
     // 复制按钮动画
     var animCopy = wx.createAnimation({
-      timingFunction: "ease"
+      timingFunction: "ease",
     });
     animCopy
       .opacity(reserve ? 0 : 1)
       .translateX(reserve ? "800px" : 0)
       .step({ duration: 1000 });
     this.setData({
-      animCopy: animCopy.export()
+      animCopy: animCopy.export(),
     });
   },
 
-  onLoad: function(res) {
+  onLoad: function (res) {
     app = getApp();
     const that = this;
     wx.getStorage({
@@ -133,11 +127,11 @@ Page({
       success(res) {
         console.log(res.data);
         that.setData({ invoiceInfo: res.data });
-      }
+      },
     });
   },
 
-  onShow: function() {
+  onShow: function () {
     // 初始描述文字动画
     this.animDESC();
 
@@ -145,38 +139,38 @@ Page({
     this.animObtainImgStart();
   },
 
-  onShareAppMessage: function(res) {
+  onShareAppMessage: function (res) {
     return {
       title: (app.nickName || "我") + "觉得这个不错，分享给你",
       imageUrl: "./img_bank.png",
-      success: function(res) {
+      success: function (res) {
         wx.showShareMenu({
-          withShareTicket: true
+          withShareTicket: true,
         });
       },
-      fail: function(res) {
+      fail: function (res) {
         // 转发失败
-      }
+      },
     };
   },
 
   isFirst: true,
-  chooseImage: function() {
+  chooseImage: function () {
     var that = this;
     wx.chooseImage({
       count: 1, // 默认9
       sizeType: ["original", "compressed"], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ["album", "camera"], // 可以指定来源是相册还是相机，默认二者都有
-      success: function(res) {
+      success: function (res) {
         that.setData({
-          splashShow: false
+          splashShow: false,
         });
         // 重置动画
         that.resetResultAnim();
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         var imgFile = res.tempFiles[0];
         that.setData({
-          imgFile: imgFile
+          imgFile: imgFile,
           // bankInfo: false
         });
 
@@ -191,11 +185,11 @@ Page({
         } else {
           that.ocrOption(imgFile.path);
         }
-      }
+      },
     });
   },
 
-  setInvoiceInfo: function() {
+  setInvoiceInfo: function () {
     var that = this;
     that.setData({ invoiceInfo: that.data.bankInfo.words_result });
     wx.setStorage({ key: "invoiceInfo", data: invoiceInfo });
@@ -203,58 +197,58 @@ Page({
   },
 
   // ocr识别
-  ocrOption: function(img) {
+  ocrOption: function (img) {
     util.showBusy("OCR识别中...");
     var that = this;
     var ret = ocr.getBankNumber({
       imgPath: img,
-      success: function(result) {
+      success: function (result) {
         wx.hideLoading();
         if (result) {
           let invoiceInfo = JSON.parse(result);
           that.setData({
-            bankInfo: invoiceInfo.data
+            bankInfo: invoiceInfo.data,
           });
           that.anim4result();
         } else {
           util.showModel("提示", "未识别到银行卡信息");
         }
       },
-      fail: function() {
+      fail: function () {
         wx.hideLoading();
         util.showModel("提示", "识别失败");
-      }
+      },
     });
   },
 
   //复制卡号到粘贴板
-  copyNumber: function() {
+  copyNumber: function () {
     var that = this;
     wx.setClipboardData({
       data: (that.data.bankInfo && that.data.bankInfo.bank_card_number
         ? that.data.bankInfo.bank_card_number
         : ""
       ).replace(/ /g, ""),
-      success: function(res) {
+      success: function (res) {
         wx.getClipboardData({
-          success: function(res) {
+          success: function (res) {
             console.log(res.data); // data
 
             if (res.data) util.showSuccess("已复制到粘贴板");
             else {
               util.showModel("提示", "复制银行卡号码为空");
             }
-          }
+          },
         });
-      }
+      },
     });
   },
 
   // 预览图片
-  previewImg: function() {
+  previewImg: function () {
     wx.previewImage({
       current: this.data.imgFile.path,
-      urls: [this.data.imgFile.path]
+      urls: [this.data.imgFile.path],
     });
-  }
+  },
 });

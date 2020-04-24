@@ -6,7 +6,7 @@ App({
   nikcName: undefined,
   ip: config.service.host,
   // baiduOcrToken:'',
-  onLaunch: function() {
+  onLaunch: function () {
     var that = this;
     ocr.initOcr(that);
 
@@ -14,17 +14,17 @@ App({
       scope: "scope.userInfo",
       success() {
         wx.getUserInfo({
-          success: function(res) {
+          success: function (res) {
             that.nickName = res.userInfo.nickName;
           },
-          fail: function(res) {
+          fail: function (res) {
             console.log(res);
-          }
+          },
         });
       },
-      fail: function(res) {
+      fail: function (res) {
         console.log(res);
-      }
+      },
     });
-  }
+  },
 });

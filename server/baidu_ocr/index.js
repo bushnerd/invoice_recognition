@@ -22,7 +22,7 @@ function doBaiduOcrRequest(token, imgBase64) {
       .post(
         "https://aip.baidubce.com/rest/2.0/ocr/v1/bankcard?access_token=" +
           token,
-        function(error, res, body) {
+        function (error, res, body) {
           if (!error && res.statusCode === 200) {
             resolve(body);
           } else {
@@ -39,11 +39,11 @@ function doBaiduOcrRequest_SDK(imgBase64) {
   // 调用银行卡识别
   return client
     .vatInvoice(imgBase64)
-    .then(function(result) {
+    .then(function (result) {
       console.log(result);
       return result;
     })
-    .catch(function(err) {
+    .catch(function (err) {
       // 如果发生网络错误
       console.log(err);
       return err;
@@ -66,24 +66,24 @@ function bankRecognition(ctx) {
       success: false,
       formData: {},
       ocrResult: {},
-      buf: new Buffer([])
+      buf: new Buffer([]),
     };
 
     // 解析请求文件事件
-    busboy.on("file", function(fieldname, file, filename, encoding, mimetype) {
-      file.on("data", function(chunk) {
+    busboy.on("file", function (fieldname, file, filename, encoding, mimetype) {
+      file.on("data", function (chunk) {
         result.buf = Buffer.concat([result.buf, Buffer.from(chunk)]);
       });
 
       // 文件写入事件结束
-      file.on("end", function() {
+      file.on("end", function () {
         result.formData["base64"] = result.buf.toString("base64");
         console.log("获取图片成功！");
       });
     });
 
     // 解析表单中其他字段信息
-    busboy.on("field", function(
+    busboy.on("field", function (
       fieldname,
       val,
       fieldnameTruncated,
@@ -96,7 +96,7 @@ function bankRecognition(ctx) {
     });
 
     // 解析结束事件
-    busboy.on("finish", async function() {
+    busboy.on("finish", async function () {
       result.success = true;
       // const ocrResult = await doBaiduOcrRequest(result.formData.baidu_ocr_token,result.formData.base64)
       const ocrResult = await doBaiduOcrRequest_SDK(result.formData.base64);
@@ -118,7 +118,7 @@ function bankRecognition(ctx) {
     });
 
     // 解析错误事件
-    busboy.on("error", function(err) {
+    busboy.on("error", function (err) {
       console.log("获取图片文件出错");
       reject(result);
     });
@@ -128,5 +128,5 @@ function bankRecognition(ctx) {
 }
 
 module.exports = {
-  bankRecognition
+  bankRecognition,
 };

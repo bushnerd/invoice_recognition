@@ -1,5 +1,5 @@
 const {
-  message: { checkSignature }
+  message: { checkSignature },
 } = require("../qcloud");
 
 /**
@@ -28,5 +28,5 @@ async function post(ctx, next) {
 
 module.exports = {
   post,
-  get
+  get,
 };
