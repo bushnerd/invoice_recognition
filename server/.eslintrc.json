@@ -4,9 +4,9 @@
   "parserOptions": {
     "sourceType": "module"
   },
-  "extends": "standard",
+  "extends": ["standard", "prettier"],
   "rules": {
-    "indent": [2, 4, { "SwitchCase": 1 }],
+    "indent": "off",
     "arrow-parens": 0,
     "generator-star-spacing": 0
   },
