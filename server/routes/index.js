@@ -2,14 +2,14 @@
  * ajax 服务路由集合
  */
 const router = require("koa-router")({
-  prefix: "/weapp"
+  prefix: "/weapp",
 });
 const controllers = require("../controllers");
 
 // 从 sdk 中取出中间件
 // 这里展示如何使用 Koa 中间件完成登录态的颁发与验证
 const {
-  auth: { authorizationMiddleware, validationMiddleware }
+  auth: { authorizationMiddleware, validationMiddleware },
 } = require("../qcloud");
 
 // --- 登录与授权 Demo --- //
@@ -36,7 +36,7 @@ router.post("/message", controllers.message.post);
 
 /*----------------------------------------------- *
  |
- |  代理银行卡号码查询接口
+ |  代理发票号码查询接口
  | 
  *----------------------------------------------- */
 router.post("/bank_search", controllers.bank_search);

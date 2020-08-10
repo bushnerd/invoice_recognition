@@ -36,7 +36,7 @@ function doBaiduOcrRequest(token, imgBase64) {
 
 // 请求返回 promise，便于异步处理
 function doBaiduOcrRequest_SDK(imgBase64) {
-  // 调用银行卡识别
+  // 调用发票识别
   return client
     .vatInvoice(imgBase64)
     .then(function(result) {
@@ -66,7 +66,7 @@ function bankRecognition(ctx) {
       success: false,
       formData: {},
       ocrResult: {},
-      buf: new Buffer([])
+      buf: new Buffer([]),
     };
 
     // 解析请求文件事件
@@ -128,5 +128,5 @@ function bankRecognition(ctx) {
 }
 
 module.exports = {
-  bankRecognition
+  bankRecognition,
 };

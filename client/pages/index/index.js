@@ -12,26 +12,26 @@ Page({
     DESC: [
       {
         title: true,
-        desc: "建议"
+        desc: "建议",
       },
       {
-        desc: "图片小于3M"
+        desc: "图片小于3M",
       },
       {
-        desc: "分辨率低于4k"
+        desc: "分辨率低于4k",
       },
       {
-        desc: "保证清晰度"
-      }
+        desc: "保证清晰度",
+      },
     ],
     animScope: {
       DESC: true,
       obtainImgInit: true,
       bankInfoInit: true,
-      copyInit: true
+      copyInit: true,
     },
     bankInfo: null,
-    invoiceInfo: undefined
+    invoiceInfo: undefined,
   },
 
   // 重置显示结果动画
@@ -52,18 +52,18 @@ Page({
   animDESC: function(reserve) {
     // 描述动画
     var animDESC = wx.createAnimation({
-      timingFunction: "ease"
+      timingFunction: "ease",
     });
     animDESC.opacity(reserve ? 0 : 1).step({ duration: reserve ? 500 : 1500 });
     this.setData({
-      animDESC: animDESC.export()
+      animDESC: animDESC.export(),
     });
   },
 
   animObtainImgStart: function(reserve) {
     // 初始选择照片按钮动画
     var animObtainImgStart = wx.createAnimation({
-      timingFunction: "ease"
+      timingFunction: "ease",
     });
     if (reserve) {
       animObtainImgStart
@@ -82,46 +82,46 @@ Page({
       animObtainImgStart.scale(1, 1).step({ duration: 300 });
     }
     this.setData({
-      animObtainImgStart: animObtainImgStart.export()
+      animObtainImgStart: animObtainImgStart.export(),
     });
   },
 
   animObtainImg: function(reserve) {
     // 获取照片动画
     var animObtainImg = wx.createAnimation({
-      timingFunction: "ease"
+      timingFunction: "ease",
     });
     animObtainImg.opacity(reserve ? 0 : 1).step({ duration: 2000 });
     this.setData({
-      animObtainImg: animObtainImg.export()
+      animObtainImg: animObtainImg.export(),
     });
   },
 
   animBankInfo: function(reserve) {
-    // 银行卡片动画
+    // 发票片动画
     var animBankInfo = wx.createAnimation({
-      timingFunction: "ease"
+      timingFunction: "ease",
     });
     animBankInfo
       .opacity(reserve ? 0 : 1)
       .translateX(reserve ? "-800px" : 0)
       .step({ duration: 800 });
     this.setData({
-      animBankInfo: animBankInfo.export()
+      animBankInfo: animBankInfo.export(),
     });
   },
 
   animCopy: function(reserve) {
     // 复制按钮动画
     var animCopy = wx.createAnimation({
-      timingFunction: "ease"
+      timingFunction: "ease",
     });
     animCopy
       .opacity(reserve ? 0 : 1)
       .translateX(reserve ? "800px" : 0)
       .step({ duration: 1000 });
     this.setData({
-      animCopy: animCopy.export()
+      animCopy: animCopy.export(),
     });
   },
 
@@ -133,7 +133,7 @@ Page({
       success(res) {
         console.log(res.data);
         that.setData({ invoiceInfo: res.data });
-      }
+      },
     });
   },
 
@@ -151,12 +151,12 @@ Page({
       imageUrl: "./img_bank.png",
       success: function(res) {
         wx.showShareMenu({
-          withShareTicket: true
+          withShareTicket: true,
         });
       },
       fail: function(res) {
         // 转发失败
-      }
+      },
     };
   },
 
@@ -169,18 +169,18 @@ Page({
       sourceType: ["album", "camera"], // 可以指定来源是相册还是相机，默认二者都有
       success: function(res) {
         that.setData({
-          splashShow: false
+          splashShow: false,
         });
         // 重置动画
         that.resetResultAnim();
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         var imgFile = res.tempFiles[0];
         that.setData({
-          imgFile: imgFile
+          imgFile: imgFile,
           // bankInfo: false
         });
 
-        // 显示获取银行卡照片模块
+        // 显示获取发票照片模块
         if (that.isFirst) {
           that.animObtainImg();
         }
@@ -191,7 +191,7 @@ Page({
         } else {
           that.ocrOption(imgFile.path);
         }
-      }
+      },
     });
   },
 
@@ -213,17 +213,17 @@ Page({
         if (result) {
           let invoiceInfo = JSON.parse(result);
           that.setData({
-            bankInfo: invoiceInfo.data
+            bankInfo: invoiceInfo.data,
           });
           that.anim4result();
         } else {
-          util.showModel("提示", "未识别到银行卡信息");
+          util.showModel("提示", "未识别到发票信息");
         }
       },
       fail: function() {
         wx.hideLoading();
         util.showModel("提示", "识别失败");
-      }
+      },
     });
   },
 
@@ -242,11 +242,11 @@ Page({
 
             if (res.data) util.showSuccess("已复制到粘贴板");
             else {
-              util.showModel("提示", "复制银行卡号码为空");
+              util.showModel("提示", "复制发票号码为空");
             }
-          }
+          },
         });
-      }
+      },
     });
   },
 
@@ -254,7 +254,7 @@ Page({
   previewImg: function() {
     wx.previewImage({
       current: this.data.imgFile.path,
-      urls: [this.data.imgFile.path]
+      urls: [this.data.imgFile.path],
     });
-  }
+  },
 });
